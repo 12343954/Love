@@ -1,0 +1,372 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Love.ME"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Love.Model"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress"
+    local:TiltEffect.IsTiltEnabled="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="ListBoxDataTemplate">
+            <Grid Background="#F5F5F5" Width="440" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btn_HeadImage" Grid.Row="0" Grid.RowSpan="2" Width="120" Height="120" Margin="10" Click="btn_HeadImage_Click">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image  Source="{Binding Path=User.Avatar}"  Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                        <TextBlock x:Name="username" Text="{Binding Path=User.NickName}" FontSize="26" FontWeight="Bold" Width="auto" Padding="0,4,10,0"></TextBlock>
+                        <TextBlock x:Name="online" Foreground="Gray" Margin="10" Text="{Binding Path=User.IsOnline}" FontSize="20" Width="auto"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBlock x:Name="age" Text="{Binding Path=User.Age}" FontSize="20" Foreground="Gray" Width="auto"  Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="height"  Text="{Binding Path=User.Height}" FontSize="20" Foreground="Gray" Width="auto" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="education" Text="{Binding Path=User.Education}" FontSize="20" Foreground="Gray" Width="auto"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <TextBlock Grid.Row="1" Text="{Binding Content}" Foreground="Gray" FontSize="26"  Margin="10" TextWrapping="Wrap"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Timestamp}" Grid.Column="0" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Source}"  Grid.Column="1" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0,0,10,10">
+                        <Button x:Name="btn_like" Foreground="Gray" BorderBrush="#E2E2E2" BorderThickness="1" Content="{Binding DiggCount}" Click="btn_like_Click"></Button>
+                        <Button x:Name="btn_gotoMessage" Width="40" Height="40" Click="btn_gotoMessage_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="/Assets/Image/message.png"></Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ListBoxImageTemplate">
+            <Grid Background="#F5F5F5" Width="440" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btn_HeadImage" Grid.Row="0" Grid.RowSpan="2" Width="120" Height="120" Margin="10" Click="btn_HeadImage_Click">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image  Source="{Binding Path=User.Avatar}"  Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                        <TextBlock x:Name="username" Text="{Binding Path=User.NickName}" FontSize="26" FontWeight="Bold" Width="auto" Padding="0,4,10,0"></TextBlock>
+                        <TextBlock x:Name="online" Margin="10" Foreground="Gray" Text="{Binding Path=User.IsOnline}" FontSize="20" Width="auto"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBlock x:Name="age" Text="{Binding Path=User.Age}" FontSize="20" Foreground="Gray" Width="auto"  Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="height"  Text="{Binding Path=User.Height}" FontSize="20" Foreground="Gray" Width="auto" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="education" Text="{Binding Path=User.Education}" FontSize="20" Foreground="Gray" Width="auto"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <TextBlock Grid.Row="1" Text="{Binding Content}" Foreground="Gray" FontSize="26"  Margin="10" TextWrapping="Wrap"/>
+                <ListBox Grid.Row="2" ItemsSource="{Binding Photolist}" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btn_popImage" Click="btn_popImage_Click">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Height="200" Width="200" Margin="10" Stretch="UniformToFill" Source="{Binding URL}" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ListBox>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Timestamp}" Grid.Column="0" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Source}"  Grid.Column="1" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0,0,10,10">
+                        <Button x:Name="btn_like" Foreground="Gray" BorderBrush="#E2E2E2" BorderThickness="1" Content="{Binding DiggCount}" Click="btn_like_Click"></Button>
+                        <Button x:Name="btn_gotoMessage" Width="40" Height="40" Click="btn_gotoMessage_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="/Assets/Image/message.png"></Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ListBoxQATemplate">
+            <Grid Background="#F5F5F5" Width="440" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btn_HeadImage" Grid.Row="0" Grid.RowSpan="2" Width="120" Height="120" Margin="10" Click="btn_HeadImage_Click">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image  Source="{Binding Path=User.Avatar}"  Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                        <TextBlock x:Name="username" Text="{Binding Path=User.NickName}" FontSize="26" FontWeight="Bold" Width="auto" Padding="0,4,10,0"></TextBlock>
+                        <TextBlock x:Name="online" Margin="10" Text="{Binding Path=User.IsOnline}" FontSize="20" Width="auto" Foreground="Gray"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBlock x:Name="age" Text="{Binding Path=User.Age}" FontSize="20" Foreground="Gray" Width="auto"  Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="height"  Text="{Binding Path=User.Height}" FontSize="20" Foreground="Gray" Width="auto" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock x:Name="education" Text="{Binding Path=User.Education}" FontSize="20" Foreground="Gray" Width="auto"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding Content}" HorizontalAlignment="Right" Foreground="Gray" FontSize="26"  Margin="10,0" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Path=QA.Title}" Foreground="Gray" FontSize="26"  Margin="10" TextWrapping="Wrap"></TextBlock>
+                    <ListBox Grid.Row="2" ItemsSource="{Binding Path=QA.Options}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton IsChecked="{Binding Checked}" IsEnabled="False" Content="{Binding Text}" Foreground="Gray" FontSize="26" GroupName="{Binding  Path=QA.ID}">
+                                </RadioButton>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Timestamp}" Grid.Column="0" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Source}"  Grid.Column="1" Margin="10" Foreground="Gray" FontSize="20" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0,0,10,10">
+                        <Button x:Name="btn_like" Foreground="Gray" BorderBrush="#E2E2E2" BorderThickness="1" Content="{Binding DiggCount}" Click="btn_like_Click"></Button>
+                        <Button x:Name="btn_gotoMessage" Width="40" Height="40" Click="btn_gotoMessage_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="/Assets/Image/message.png"></Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ButtonMoreTemplate">
+            <Grid Width="440">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="btn_more" BorderThickness="2" BorderBrush="#E2E2E2" Foreground="Gray" Background="#F5F5F5" Content="加载更多" VerticalAlignment="Top"
+                         Click="btn_more_Click">
+                </Button>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MessageTemplate">
+            <Grid  Background="#F5F5F5" Width="440" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btn_HeadImage" Grid.Row="0" Grid.RowSpan="2" Width="120" Height="120" Margin="10" Click="btn_HeadImage_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image  Source="{Binding Path=User.Avatar}"  Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Grid Grid.Row="0" Grid.Column="1" Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Path=User.NickName}" Grid.Row="0" Grid.Column="0" FontSize="26" FontWeight="Bold" Padding="0,4,10,0"></TextBlock>
+                    <TextBlock Text="{Binding PrettyTime}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" FontSize="20" Width="auto" Margin="0,10,10,0" Foreground="Gray"></TextBlock>
+                    <TextBlock Text="{Binding RichContent}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="NoWrap" Padding="0,0,10,10" TextTrimming="WordEllipsis" FontSize="26" Foreground="Gray" Width="auto" VerticalAlignment="Bottom"></TextBlock>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <Grid HorizontalAlignment="Left" Margin="12,0,12,12"  VerticalAlignment="Top" Width="446">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="花田" VerticalAlignment="Top" FontSize="24" Foreground="{StaticResource PhoneAccentBrush}" />
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="70,9,0,0" TextWrapping="Wrap" Text="I love, therefore I am" VerticalAlignment="Top" FontFamily="Segoe UI Symbol" FontSize="14" Foreground="#FF949494"/>
+            <ProgressBar Grid.Row="1" x:Name="progressBar1" Width="450"  Margin="4,0" Height="3" Background="Transparent" />
+        </Grid>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <phone:Pivot x:Name="pivot" Grid.Row="1" LoadedPivotItem="pivot_LoadedPivotItem">
+            <phone:PivotItem x:Name="pivot_trend">
+                <phone:PivotItem.Header>
+                    <TextBlock x:Name="header_trend" Width="300" Margin="0,-20,0,0">动态</TextBlock>
+                </phone:PivotItem.Header>
+                <Grid Margin="0,-20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <local:CustomListBox Grid.Row="0" x:Name="list_trend" PrepareContainerForItem="list_PrepareContainerForItem" SelectionChanged="list_trend_SelectionChanged"></local:CustomListBox>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem x:Name="pivot_info">
+                <phone:PivotItem.Header>
+                    <TextBlock x:Name="header_info" Width="300" Margin="0,-20,0,0">资料</TextBlock>
+                </phone:PivotItem.Header>
+                <Grid Margin="0,-20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox x:Name="list_info" Grid.Row="0" Width="440">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"  Background="#F5F5F5">
+                                        <TextBlock MaxWidth="200" MinWidth="120" Padding="4" Text="{Binding Title}" TextWrapping="Wrap" Foreground="Gray" FontSize="26"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" >
+                                        <TextBlock Padding="4" Text="{Binding Value}" TextWrapping="Wrap" Foreground="Gray" FontSize="26"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+            <phone:PivotItem x:Name="pivot_huatian">
+                <phone:PivotItem.Header>
+                    <TextBlock x:Name="header_huatian" Width="300" Margin="0,-20,0,0">花田成就</TextBlock>
+                </phone:PivotItem.Header>
+                <Grid Margin="0,-20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox x:Name="list_huatian" Grid.Row="0" Width="440">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"  Background="#F5F5F5">
+                                        <TextBlock Padding="4" Text="{Binding Title}" TextWrapping="Wrap" Foreground="Gray" FontSize="26"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+        <Popup x:Name="Popup_ShowImage">
+            <Border Margin="0">
+                <Grid x:Name="gird_Image" Background="Black"  Height="auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="0" Width="440" Height="700" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Image x:Name="IMG_ShowPop" Source="" Height="auto" Width="auto" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="applicationbar1" Mode="Default" Opacity="0.6" IsMenuEnabled="True"  BackgroundColor="Black" ForegroundColor="AntiqueWhite">
+            <shell:ApplicationBarIconButton x:Name="appbar_Refresh" IconUri="/Assets/AppBar/refresh.png" Text="刷新" Click="ApplicationBarIconButton_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

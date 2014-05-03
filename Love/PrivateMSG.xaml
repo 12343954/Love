@@ -1,0 +1,104 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Love.PrivateMSG"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="clr-namespace:Love.Model"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    local:TiltEffect.IsTiltEnabled="True"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="Template_ME" >
+            <Grid  Width="370" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="330"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="1" Background="#F5F5F5">
+                    <TextBlock Text="{Binding RichContent}" Width="330" Margin="10" TextWrapping="Wrap" FontSize="26" Foreground="Gray"></TextBlock>
+                    <TextBlock Text="{Binding PrettyTime}" Width="330" Margin="10" Padding="0,0,20,0"  FontSize="20" Foreground="Gray" TextAlignment="Right"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="Template_YOU" >
+            <Grid  Width="370" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="330"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" Background="#F5F5F5">
+                    <TextBlock Text="{Binding RichContent}" Width="330" Margin="10" TextWrapping="Wrap" FontSize="26" Foreground="Gray"></TextBlock>
+                    <TextBlock Text="{Binding PrettyTime}" Width="330" Margin="10" FontSize="20" Foreground="Gray"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ButtonMoreTemplate">
+            <Grid Width="370">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="btn_more" BorderThickness="2" BorderBrush="#E2E2E2" Foreground="Gray" Background="#F5F5F5" Content="加载更多" VerticalAlignment="Top"
+                         Click="btn_more_Click">
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <Grid HorizontalAlignment="Left" Margin="12,0,12,12"  VerticalAlignment="Top" Width="446">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="花田" VerticalAlignment="Top" FontSize="24" Foreground="{StaticResource PhoneAccentBrush}" />
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="70,9,0,0" TextWrapping="Wrap" Text="oh , i seek you" VerticalAlignment="Top" FontFamily="Segoe UI Symbol" FontSize="14" Foreground="#FF949494"/>
+            <ProgressBar Grid.Row="1" x:Name="progressBar1" Width="450"  Margin="4,0" Height="3" Background="Transparent" />
+        </Grid>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="20,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="auto" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="username" Grid.Row="0" Grid.Column="0" Text="" FontSize="26" Width="260" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0,1" Grid.ColumnSpan="2" Margin="-100,-26.877,0,0" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                <TextBlock.RenderTransform>
+                    <CompositeTransform Rotation="90" TranslateX="100"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBox x:Name="txt_writemsg" TextWrapping="Wrap" Width="380" Grid.Row="0" Grid.Column="1" Text="回复" Visibility="Collapsed"></TextBox>
+            <local:CustomListBox x:Name="list_message" Width="380" HorizontalAlignment="Right" Height="700" Grid.Row="1" Grid.Column="1" PrepareContainerForItem="list_message_PrepareContainerForItem"></local:CustomListBox>
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="applicationbar1" Mode="Default" Opacity="0.6" BackgroundColor="Black" ForegroundColor="AntiqueWhite">
+            <shell:ApplicationBarIconButton x:Name="appbar_Refresh" IconUri="/Assets/AppBar/refresh.png" Text="刷新" Click="ApplicationBarIconButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_WriteMSG" IconUri="/Assets/AppBar/edit.png" Text="回复" Click="ApplicationBarIconButton_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

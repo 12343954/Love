@@ -1,0 +1,96 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Love.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    xmlns:local="clr-namespace:Love.Model"
+    local:TiltEffect.IsTiltEnabled="True"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <Grid HorizontalAlignment="Left" Margin="12,0,12,12"  VerticalAlignment="Top" Width="446">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="关于" VerticalAlignment="Top" FontSize="24" Foreground="{StaticResource PhoneAccentBrush}" />
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="70,9,0,0" TextWrapping="Wrap" Text="about love" VerticalAlignment="Top" FontFamily="Segoe UI Symbol" FontSize="14" Foreground="#FF949494"/>
+        </Grid>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <phone:Pivot>
+                <phone:PivotItem x:Name="pivotAbout" Header="网易·花田" Margin="12,0,12,12">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Assets/app_xx.png"  Width="256" Height="256" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"></Image>
+                        <TextBlock Grid.Row="2" TextAlignment="Right">花田内容版权：</TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1">网易公司所有</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right">发行商：</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="1"> smith.guo</TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right">alucardg@</TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="1"> 163.com</TextBlock>
+                        <Button Grid.Row="5" BorderThickness="2" BorderBrush="#CECECE" Foreground="#FF9E9E9E" Background="#E2E2E2" Grid.ColumnSpan="2" Content="评分" Height="80" Width="300" Click="Button_Click"></Button>
+                    </Grid>
+                </phone:PivotItem>
+                <phone:PivotItem x:Name="pivotDetails" Margin="12,0,12,12">
+                    <phone:PivotItem.Header>
+                        <TextBlock Margin="0,0,100,0">介绍</TextBlock>
+                    </phone:PivotItem.Header>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <TextBlock FontSize="30" Margin="20" Foreground="{StaticResource PhoneAccentBrush}">特别说明</TextBlock>
+                            <TextBlock Margin="40,0" TextWrapping="Wrap" Foreground="Gray" LineHeight="30">
+                                这是民间版的花田WP8客户端，非官方版本！
+                            <LineBreak/>本着我对花田的喜爱，也不知为何网易迟迟不出，自己做了个，也为广大WP8的花田童鞋提供便利，节省流量。
+                            </TextBlock>
+
+                            <TextBlock FontSize="30" Margin="20" Foreground="{StaticResource PhoneAccentBrush}">第一版说明</TextBlock>
+                            <TextBlock Margin="40,0" TextWrapping="Wrap" Foreground="Gray" LineHeight="30">
+                                由于时间和精力有限，目前功能不全。
+                                <LineBreak/>暂有：
+                                <LineBreak/>　1，查看：动态、收藏、来访、被赞
+                                <LineBreak/>　2，发私信
+                                <LineBreak/>　3，点赞
+                                <LineBreak/>　4，发文字传情
+                                <LineBreak/>　5，查看图片、属相
+                                <LineBreak/>其他功能，或根据大家反馈，慢慢加上
+                            </TextBlock>
+
+                            <TextBlock FontSize="30" Margin="20" Foreground="{StaticResource PhoneAccentBrush}">花田是什么</TextBlock>
+                            <TextBlock Margin="40,0" TextWrapping="Wrap" Foreground="Gray" LineHeight="30">花田是网易旗下严肃婚恋社区，提倡享受恋爱、幸福结婚，服务于追求生活品质的用户。
+<LineBreak/>花田通过多重手段营造安全、真实、优质的婚恋氛围，帮助您快速的找到意中人。</TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+                </phone:PivotItem>
+            </phone:Pivot>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
